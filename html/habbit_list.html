@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <title>habbit list</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+  </head>
+  <body>
+    <div calss="container">
+      <div class="text">
+        <h2>Hibbit List</h2>
+      </div>
+      <div class="listTable">
+        <table class="habbitList">
+          <thead>
+            <tr>
+              <td>ID</td>
+              <td>습관명</td>
+              <td>시작일 - 종료일</td>
+              <td>기록갯수</td>
+              <td>삭제</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% items.forEach((item) => { %>
+            <tr>
+              <td><%=item['username']%></td>
+              <td>
+                <a href="habbit_record_list.html"><%=item['habbitname']%></a>
+              </td>
+              <td><%=item['habbitdate']%></td>
+              <td><%=item['count']%></td>
+              <td><a href="/delte">삭제</a></td>
+            </tr>
+            <% });%>
+          </tbody>
+        </table>
+      </div>
+      <a href="habbit_add.html">add</a>
+    </div>
+  </body>
+</html>

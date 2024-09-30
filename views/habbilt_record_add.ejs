@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>Habbit Recode Add</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Habbit Record</h1>
+      <form method="post" action="/addhabbitmemo">
+        <div class="titleText">
+          <h2><%=item.habbitname%></h2>
+        </div>
+        <div>
+          <p>
+            <label>memo</label>
+            <input type="text" name="habbitmemo" />
+          </p>
+        </div>
+        <button type="submit">submit</button>
+      </form>
+    </div>
+  </body>
+</html>
