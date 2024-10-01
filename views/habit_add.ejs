@@ -5,20 +5,23 @@
   </head>
   <body>
     <div class="container">
-      <form method="post" action="/addhabbit">
+      <h1>Habbit Add</h1>
+      <form method="post" action="/add_habbit" >
         <p>
           <label>habbit</label>
-          <input type="text" name="habbitname" />
+          <input type="text" name="habit_name"  />
         </p>
         <p>
           <label>strDate</label>
-          <input type="text" name="strDate" />
+          <input type="text" name="str_date" />
         </p>
         <p>
           <label>endDate</label>
-          <input type="text" name="endDate" />
+          <input type="text" name="end_date" />
         </p>
+        <a class="button" href="/habit_list">list</a>
         <button type="submit">submit</button>
+        
       </form>
     </div>
   </body>

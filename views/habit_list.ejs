@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <title>habbit list</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+  </head>
+  <body>
+    <div calss="container">
+      <nav>
+        <a href="/">HOME</a>
+        <a href="/">logout</a>
+      </nav>
+      <div class="text">
+        <h2>Hibbit List</h2>
+      </div>
+      <div class="listTable">
+        <!-- <figure> -->
+        <table class="habbitList" style="width: 100%; table-layout: auto">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>습관명</th>
+              <th>시작일 - 종료일</th>
+              <th>기록갯수</th>
+              <th>삭제</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if(habits.length == 0) { %>
+              <tr>
+                  <td colspan="4"> 습관을 등록 해주세요 </td>
+              </tr>
+            <% } %>
+            <% habits.forEach((item) => { %>
+            <tr>
+              <td><%=item['id']%></td>
+              <td>
+                <a href="/habit_record_list/<%= item.id%>/<%= item.habit_name%>"><%=item['habit_name']%></a>
+              </td>
+              <td><%=item['str_date']%> - <%=item['end_date']%></td>
+              <td><%=item['cnt']%></td>
+              <td><a href="/delte_habit/<%=item['id']%>">삭제</a></td>
+            </tr>
+            <% });%>
+          </tbody>
+        </table>
+        <!-- </figure> -->
+      </div>
+      <p></p>
+      <div>
+        <% if (currentPage > 1) {%>
+        <a href="/habit_list?page=<%= currentPage -1 %> ">pre</a>
+        <% } %> <% for (let i = 1; i <= totalPage; i++) { %>
+        <a href="/habit_list/page= <%=i%>"><%=i%></a>
+        <% } %> <% if (currentPage < totalPage) {%>
+        <a href="/habit_list?page=<%= currentPage +1 %>">next</a>
+        <% } %>
+      </div>
+      <a class="button" href="/habit_add">add</a>
+    </div>
+  </body>
+</html>

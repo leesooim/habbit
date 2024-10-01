@@ -6,16 +6,19 @@
   <body>
     <div class="container">
       <h1>Habbit Record</h1>
-      <form method="post" action="/addhabbitmemo">
+      <form method="post" action="/add_habit_record" ">
         <div class="titleText">
-          <h2><%=item.habbitname%></h2>
+          <h2><%= habit_name%></h2>
         </div>
         <div>
           <p>
             <label>memo</label>
-            <input type="text" name="habbitmemo" />
+            <input type="text" name="memo" />
           </p>
+          <input type="hidden" name="habit_id" value="<%=habit_id%>">
+          <input type="hidden" name="habit_name" value="<%=habit_name%>">
         </div>
+        <a class="button" href="/habit_record_list/<%=habit_id%>/<%=habit_name%>">list</a>
         <button type="submit">submit</button>
       </form>
     </div>

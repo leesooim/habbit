@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <title>habbit Record</title>
+        <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+    </head>
+    <div class="container">
+        <div class = "titleText">
+            <h1>Habbit Record</h2>
+        </div>
+        <div>
+            <h2><%=name%></h2>
+        </div>
+        <div class="habitrecordList">
+            <table class="habitRecordTable">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>memo</td>
+                        <td>date</td>
+                        <td>delete</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if(habitRecode.length == 0) { %>
+                        <tr>
+                            <td colspan="4"> 습관기록을 등록 해주세요 </td>
+                        </tr>
+                    <% } %>
+                    <% habitRecode.forEach((item) => { %>
+                        <tr>
+                           <td><%=item['id']%></td>
+                            <td><%=item['memo']%></td>
+                            <td><%=item['createdAt']%></td>
+                            <td><a href="/delte_habit_record/<%=item['id']%>/<%=habit_id%>/<%=name%>">삭제</a></td>
+                           
+                        </tr>
+                    <% });%>      
+                </tbody>
+            </table>
+        </div>
+        <p></p>
+        <div>
+          <% if (currentPage > 1) {%>
+          <a href="/habit_list?page=<%= currentPage -1 %> ">pre</a>
+          <% } %> <% for (let i = 1; i <= totalPage; i++) { %>
+          <a href="/habit_list/page= <%=i%>"><%=i%></a>
+          <% } %> <% if (currentPage < totalPage) {%>
+          <a href="/habit_list?page=<%= currentPage +1 %>">next</a>
+          <% } %>
+        </div>
+        <a class="button" href="/habit_list">list</a>
+        <a class = "button" href="/habit_record_add/<%=habit_id%>/<%=name%>">add</a>
+    </div>
+</html>
