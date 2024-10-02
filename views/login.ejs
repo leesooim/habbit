@@ -3,22 +3,36 @@
     <title>login Page</title>
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
   </head>
+  <script>
+    function display() {
+      var chk = document.getElementsByClassName("loginMsg");
+    }
+  </script>
   <body>
     <div class="container">
       <h1>login</h1>
       <form method="post" action="/login">
         <figure>
           <p>
+            <label
+              class="loginMsg"
+              style="
+                display: <%= message ? 'block' : 'none'%>;
+                color: orange;
+                font-size: small;
+              "
+              >* ID 혹은 비밀번호를 확인하세요</label
+            >
             <label>ID</label>
-            <input type="text" name="username" />
+            <input type="text" name="email" />
           </p>
           <p>
             <label>password</label>
             <input type="text" name="password" />
           </p>
           <button type="submit">login</button>
+          <a class="button" href="/register">JOIN</a>
         </figure>
-        <center><a href="/html/register.html">JOIN</a></center>
       </form>
     </div>
   </body>
