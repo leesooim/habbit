@@ -2,6 +2,30 @@
   <head>
     <title>Habbit Recode Add</title>
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+    <style>
+        .container {
+        padding-top: 20%;
+        padding-left: 10%;
+        font-family: arial;
+        font-size: 24px;
+        margin: 25px;
+        width: 400px;
+        height: 200px;
+        /* outline: dashed 1px black; */
+      }
+
+      input {
+        width: 100%;
+      }
+
+      .btn {
+        padding-left: 10%;
+      }
+      .button {
+        width: 45%;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -17,9 +41,9 @@
           </p>
           <input type="hidden" name="habit_id" value="<%=habit_id%>">
           <input type="hidden" name="habit_name" value="<%=habit_name%>">
-        </div>
+        </div class="btn">
         <a class="button" href="/habit_record_list/<%=habit_id%>?habit_name=<%=habit_name%>">list</a>
-        <button type="submit">submit</button>
+        <button class="button" type="submit">submit</button>
       </form>
     </div>
   </body>

@@ -2,26 +2,51 @@
   <head>
     <title>Add Habbit</title>
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+    <style>
+      .container {
+        padding-top: 20%;
+        padding-left: 10%;
+        font-family: arial;
+        font-size: 24px;
+        margin: 25px;
+        width: 400px;
+        height: 200px;
+        /* outline: dashed 1px black; */
+      }
+
+      input {
+        width: 100%;
+      }
+
+      .btn {
+        padding-left: 10%;
+      }
+      .button {
+        width: 45%;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
       <h1>Habbit Add</h1>
-      <form method="post" action="/add_habbit" >
+      <form method="post" action="/add_habbit">
         <p>
           <label>habbit</label>
-          <input type="text" name="habit_name"  />
+          <input type="text" name="habit_name" />
         </p>
         <p>
           <label>strDate</label>
-          <input type="text" name="str_date" />
+          <input type="date" name="str_date" />
         </p>
         <p>
           <label>endDate</label>
-          <input type="text" name="end_date" />
+          <input type="date" name="end_date" />
         </p>
-        <a class="button" href="/habit_list">list</a>
-        <button type="submit">submit</button>
-        
+        <div class="btn">
+          <a class="button" href="/habit_list">list</a>
+          <button class="button" type="submit">submit</button>
+        </div>
       </form>
     </div>
   </body>

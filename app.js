@@ -14,6 +14,12 @@ const db = new sqlite3.Database(db_name, (err) => {
   }
 });
 
+const client_id = "dK569gWosFAywAYAQwh0";
+const client_secret = "4QK_6lr1fa";
+var redirectURI = encodeURI("http://localhost:3000/habit_list");
+var api_url = "";
+var state = "RANDOM_STATE";
+
 //table 생성
 const create_sql = `
 create table if not exists users (
@@ -105,30 +111,72 @@ app.post("/login", (req, res) => {
   });
 });
 
+//네이버로그인
+app.get("/naverlogin", function (req, res) {
+  api_url =
+    "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=" +
+    client_id +
+    "&redirect_uri=" +
+    redirectURI +
+    "&state=" +
+    state;
+  res.writeHead(200, { "Content-Type": "text/html;charset=utf-8" });
+  res.end(
+    "<a href='" +
+      api_url +
+      "'><img height='50' src='http://static.nid.naver.com/oauth/small_g_in.PNG'/></a>"
+  );
+});
+
+app.get("/callback", function (req, res) {
+  code = req.query.code;
+  state = req.query.state;
+  api_url =
+    "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=" +
+    client_id +
+    "&client_secret=" +
+    client_secret +
+    "&redirect_uri=" +
+    redirectURI +
+    "&code=" +
+    code +
+    "&state=" +
+    state;
+  var request = require("request");
+  var options = {
+    url: api_url,
+    headers: {
+      "X-Naver-Client-Id": client_id,
+      "X-Naver-Client-Secret": client_secret,
+    },
+  };
+  request.get(options, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      res.writeHead(200, { "Content-Type": "text/json;charset=utf-8" });
+      res.end(body);
+    } else {
+      res.status(response.statusCode).end();
+      console.log("error = " + response.statusCode);
+    }
+  });
+});
 //회원가입페이지
 app.get("/register", (req, res) => {
-  res.render("register");
+  res.render("register", { message: req.query.message });
 });
 
 //회원가입
 app.post("/register", (req, res) => {
   const { name, email, password } = req.body;
-
-  const userSql = "select email from users";
+  console.log(email);
+  const userChkSql = `select email from users where email = '${email}'`;
   const registerSql = `insert into users (name, email, password) values('${name}','${email}','${password}')`;
-  db.all(userSql, (err, rows) => {
-    let isUser = rows.filter((item) => {
-      return item.email == email;
-    });
-
-    if (isUser.length > 0) {
-      res.send(
-        "<script>alert('중복 된 ID입니다.'); window.location.replace('/register')</script>; "
-      );
+  db.all(userChkSql, (err, cnt) => {
+    if (cnt.length > 0) {
+      res.redirect("/register?message=true");
     } else {
-      db.run(registerSql, (err) => {
-        if (err) {
-          console.log(err);
+      db.run(registerSql, (insertErr) => {
+        if (insertErr) {
           res.status(500).send("Server Error!");
         } else {
           res.redirect("/login");
@@ -226,8 +274,6 @@ app.get("/delte_habit", (req, res) => {
 app.get("/habit_record_list/:id", (req, res) => {
   const habit_name = req.query.habit_name;
   const id = req.params.id;
-  console.log("1111111111");
-  console.log(id);
   let page = req.query.page ? parseInt(req.query.page) : 1;
   const limit = 5;
   const offset = (page - 1) * limit;
@@ -263,10 +309,6 @@ app.get("/habit_record_list/:id", (req, res) => {
 
 //습관기록추가페이지
 app.get("/habit_record_add/:id", (req, res) => {
-  console.log("22222222222");
-
-  console.log(req.params);
-  console.log(req.query);
   res.render("habit_record_add", {
     habit_id: req.params.id,
     habit_name: req.query.habit_name,
@@ -275,14 +317,11 @@ app.get("/habit_record_add/:id", (req, res) => {
 
 //습관기록 추가
 app.post("/add_habit_record", (req, res) => {
-  console.log("3333333333");
-  console.log(req.body);
   let sql = `insert into records (memo,habit_id) 
   values ('${req.body.memo}','${req.body.habit_id}')`;
 
   db.run(sql, (err) => {
     if (err) {
-      console.log(err);
       res.status(500).send("Server Error");
     } else {
       res.redirect(`/habit_record_list/${req.body.habit_id}`);
@@ -297,7 +336,6 @@ app.get("/delte_habit_record/:id", (req, res) => {
   let sql = `delete from records where id = ${id}`;
   db.run(sql, (err) => {
     if (err) {
-      console.log(err);
       res.status(500).send("Server Error");
     } else {
       res.redirect(`/habit_record_list/${req.query.id}?name=${req.query.name}`);

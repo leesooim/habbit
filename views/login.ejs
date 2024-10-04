@@ -2,18 +2,41 @@
   <head>
     <title>login Page</title>
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+    <style>
+      .container {
+        padding-top: 20%;
+        padding-left: 10%;
+        font-family: arial;
+        font-size: 24px;
+        margin: 25px;
+        width: 400px;
+        height: 200px;
+        /* outline: dashed 1px black; */
+      }
+
+      input {
+        width: 100%;
+      }
+
+      .btn {
+        padding-top: 10%;
+        padding-left: 10%;
+      }
+      .button {
+        width: 45%;
+        text-align: center;
+      }
+    </style>
   </head>
-  <script>
-    function display() {
-      var chk = document.getElementsByClassName("loginMsg");
-    }
-  </script>
+
   <body>
     <div class="container">
       <h1>login</h1>
       <form method="post" action="/login">
         <figure>
           <p>
+            <label>ID</label>
+            <input type="text" name="email" />
             <label
               class="loginMsg"
               style="
@@ -23,15 +46,16 @@
               "
               >* ID 혹은 비밀번호를 확인하세요</label
             >
-            <label>ID</label>
-            <input type="text" name="email" />
           </p>
           <p>
             <label>password</label>
             <input type="text" name="password" />
           </p>
-          <button type="submit">login</button>
-          <a class="button" href="/register">JOIN</a>
+          <div class="btn">
+            <a class="button" href="/register">join</a>
+            <button class="button" type="submit">login</button>
+            <!-- <a class="button" href="/naverlogin">naver</a> -->
+          </div>
         </figure>
       </form>
     </div>

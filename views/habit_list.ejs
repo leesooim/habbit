@@ -29,9 +29,9 @@
             <tr>
               <td colspan="5">습관을 등록 해주세요</td>
             </tr>
-            <% } %> <% habits.forEach((item) => { %>
+            <% } %> <% habits.forEach((item,idx) => { %>
             <tr>
-              <td><%=item['id']%></td>
+              <td><%=idx+1%></td>
               <td>
                 <a
                   href="/habit_record_list/<%= item.id%>?habit_name=<%= item.habit_name%>"

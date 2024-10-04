@@ -2,6 +2,7 @@
     <head>
         <title>habbit Record</title>
         <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+      
     </head>
     <div class="container">
         <div class = "titleText">
@@ -11,7 +12,7 @@
             <h2><%=habit_name%></h2>
         </div>
         <div class="habitrecordList">
-            <table class="habitRecordTable">
+            <table class="habitRecordTable" style="width: 100%; table-layout: auto">
                 <thead>
                     <tr>
                         <td>ID</td>
@@ -23,12 +24,12 @@
                 <tbody>
                     <% if(habitRecode.length == 0) { %>
                         <tr>
-                            <td colspan="4"> 습관기록을 등록 해주세요 </td>
+                            <td colspan="4" > 습관기록을 등록 해주세요 </td>
                         </tr>
                     <% } %>
-                    <% habitRecode.forEach((item) => { %>
+                    <% habitRecode.forEach((item,idx) => { %>
                         <tr>
-                           <td><%=item['id']%></td>
+                           <td><%=idx+1%></td>
                             <td><%=item['memo']%></td>
                             <td><%=item['createdAt']%></td>
                             <td><a href="/delte_habit_record/<%=item['id']%>?id=<%=habit_id%>&name=<%=habit_name%>">삭제</a></td>
@@ -39,7 +40,7 @@
             </table>
         </div>
         <p></p>
-        <div>
+        <div class="page_area">
           <% if (currentPage > 1) {%>
           <a href="/habit_list?page=<%= currentPage -1 %> ">pre</a>
           <% } %> <% for (let i = 1; i <= totalPage; i++) { %>
@@ -47,7 +48,7 @@
           <% } %> <% if (currentPage < totalPage) {%>
           <a href="/habit_list?page=<%= currentPage +1 %>">next</a>
           <% } %>
-        </div>
+        </div >
         <a class="button" href="/habit_list">list</a>
         <a class = "button" href="/habit_record_add/<%=habit_id%>?habit_name=<%=habit_name%>">add</a>
     </div>

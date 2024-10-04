@@ -2,9 +2,33 @@
   <head>
     <title>register</title>
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+    <style>
+      .container {
+        padding-top: 20%;
+        padding-left: 10%;
+        font-family: arial;
+        font-size: 24px;
+        margin: 25px;
+        width: 400px;
+        height: 200px;
+        outline: dashed 1px black;
+      }
+
+      input {
+        width: 100%;
+      }
+
+      .btn {
+        padding-left: 10%;
+      }
+      .button {
+        width: 45%;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
-    <div>
+    <div class="container">
       <h1>Register</h1>
       <form method="post" action="/register">
         <figure>
@@ -14,15 +38,29 @@
           </p>
           <p>
             <label>ID</label>
-            <input type="text" name="email" />
-            <label>* email로 id를 생성해주세요</label>
+            <input
+              type="text"
+              name="email"
+              placeholder="email 형식으로 입력해주세요"
+            />
+            <label
+              class="loginMsg"
+              style="
+                display: <%= message ? 'block' : 'none'%>;
+                color: orange;
+                font-size: small;
+              "
+              >* 중복된 ID입니다</label
+            >
           </p>
           <p>
             <label>password</label>
             <input type="text" name="password" />
           </p>
-          <a class="button" href="/login">back</a>
-          <button type="submit">join</button>
+          <div class="btn">
+            <a class="button" href="/login">back</a>
+            <button class="button" type="submit">join</button>
+          </div>
         </figure>
       </form>
     </div>
